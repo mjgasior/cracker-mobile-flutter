@@ -6,8 +6,13 @@ void main() => runApp(CrackerApp());
 class CrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
-    return MaterialApp(title: 'Welcome to Cracker', home: RandomWords());
+    return MaterialApp(
+      title: 'Cracker app',
+      theme: ThemeData(
+        primaryColor: Colors.white,
+      ),
+      home: RandomWords(),
+    );
   }
 }
 
