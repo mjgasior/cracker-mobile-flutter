@@ -1,6 +1,7 @@
 # Cracker Mobile in Flutter
 
 [Windows installation instructions](https://flutter.dev/docs/get-started/install/windows)
+[Search engine for open source packages for Flutter](https://pub.dev/)
 
 A new Flutter application.
 
