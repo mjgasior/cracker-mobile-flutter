@@ -1,4 +1,4 @@
-package com.example.cracker_app
+package com.cracker.app
 
 import io.flutter.embedding.android.FlutterActivity
 
