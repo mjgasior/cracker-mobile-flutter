@@ -1,87 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() => runApp(CrackerApp());
 
-class CrackerApp extends StatelessWidget {
-  Widget build(BuildContext context) {
-    final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
-    ValueNotifier<GraphQLClient> client =
-        ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: httpLink));
-
-    return GraphQLProvider(
-      client: client,
-      child: MaterialApp(
-        title: 'Cracker app',
-        home: Markers(),
-      ),
-    );
-  }
+class CrackerApp extends StatefulWidget {
+  @override
+  _CrackerAppState createState() => _CrackerAppState();
 }
 
-String readRepositories = """
-    {
-    markers {
-      _id
-      latitude
-      longitude
-      imageFilename
-      polish {
-        name
-        description
-      }
-      english {
-        name
-        description
-      }
-    }
-  }
-""";
-
-class Markers extends StatelessWidget {
-  final _biggerFont = TextStyle(fontSize: 18.0);
-
-  Widget _buildRow(dynamic marker) {
-    return ListTile(
-      title: Text(
-        marker['english']['name'],
-        style: _biggerFont,
-      ),
-    );
-  }
-
-  Widget _buildList() {
-    return Query(
-      options: QueryOptions(
-        documentNode: gql(readRepositories),
-      ),
-      builder: (QueryResult result,
-          {VoidCallback refetch, FetchMore fetchMore}) {
-        if (result.hasException) {
-          return Text(result.exception.toString());
-        }
-
-        if (result.loading) {
-          return Text('Loading');
-        }
-
-        List markers = result.data['markers'];
-
-        return ListView.builder(
-            itemCount: markers.length,
-            itemBuilder: (context, index) {
-              final marker = markers[index];
-              return _buildRow(marker);
-            });
-      },
-    );
-  }
+class _CrackerAppState extends State<CrackerApp> {
+  bool isBusy = false;
+  bool isLoggedIn = false;
+  String errorMessage;
+  String name;
+  String picture;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Cracker app markers')),
-      body: _buildList(),
+    return MaterialApp(
+      title: 'Auth0 Demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Auth0 Demo'),
+        ),
+        body: Center(
+          child: Text('Implement User Authentication'),
+        ),
+      ),
     );
   }
 }
