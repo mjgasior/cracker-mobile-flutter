@@ -2,20 +2,22 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-void main() {
-  final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
-  ValueNotifier<GraphQLClient> client =
-      ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: httpLink));
-  runApp(GraphQLProvider(
-    client: client,
-    child: MaterialApp(
-      title: 'Cracker app',
-      theme: ThemeData(
-        primaryColor: Colors.white,
+void main() => runApp(CrackerApp());
+
+class CrackerApp extends StatelessWidget {
+  Widget build(BuildContext context) {
+    final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
+    ValueNotifier<GraphQLClient> client =
+        ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: httpLink));
+
+    return GraphQLProvider(
+      client: client,
+      child: MaterialApp(
+        title: 'Cracker app',
+        home: RandomWords(),
       ),
-      home: RandomWords(),
-    ),
-  ));
+    );
+  }
 }
 
 class RandomWords extends StatefulWidget {
@@ -96,7 +98,7 @@ class _RandomWordsState extends State<RandomWords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Startup Name Generator'),
+          title: Text('Startup Names'),
           actions: [IconButton(icon: Icon(Icons.list), onPressed: _pushSaved)]),
       body: _buildSuggestions(),
     );
