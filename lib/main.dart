@@ -1,4 +1,3 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -14,93 +13,75 @@ class CrackerApp extends StatelessWidget {
       client: client,
       child: MaterialApp(
         title: 'Cracker app',
-        home: RandomWords(),
+        home: Markers(),
       ),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
-  @override
-  _RandomWordsState createState() => _RandomWordsState();
-}
+String readRepositories = """
+    {
+    markers {
+      _id
+      latitude
+      longitude
+      imageFilename
+      polish {
+        name
+        description
+      }
+      english {
+        name
+        description
+      }
+    }
+  }
+""";
 
-class _RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _saved = Set<WordPair>();
+class Markers extends StatelessWidget {
   final _biggerFont = TextStyle(fontSize: 18.0);
 
-  Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: EdgeInsets.all(16.0),
-        itemBuilder: (context, i) {
-          if (i.isOdd) {
-            return Divider();
-          }
-
-          final index = i ~/ 2;
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-
-  Widget _buildRow(WordPair pair) {
-    final isAlreadySaved = _saved.contains(pair);
+  Widget _buildRow(dynamic marker) {
     return ListTile(
       title: Text(
-        pair.asPascalCase,
+        marker['english']['name'],
         style: _biggerFont,
       ),
-      trailing: Icon(isAlreadySaved ? Icons.favorite : Icons.favorite_border,
-          color: isAlreadySaved ? Colors.red : null),
-      onTap: () {
-        setState(() {
-          if (isAlreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
     );
   }
 
-  void _pushSaved() {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      final tiles = _saved.map(
-        (WordPair pair) {
-          return ListTile(
-            title: Text(
-              pair.asPascalCase,
-              style: _biggerFont,
-            ),
-          );
-        },
-      );
-      final divided = ListTile.divideTiles(
-        context: context,
-        tiles: tiles,
-      ).toList();
+  Widget _buildList() {
+    return Query(
+      options: QueryOptions(
+        documentNode: gql(readRepositories),
+      ),
+      builder: (QueryResult result,
+          {VoidCallback refetch, FetchMore fetchMore}) {
+        if (result.hasException) {
+          return Text(result.exception.toString());
+        }
 
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Saved Suggestions'),
-        ),
-        body: ListView(children: divided),
-      );
-    }));
+        if (result.loading) {
+          return Text('Loading');
+        }
+
+        List markers = result.data['markers'];
+
+        return ListView.builder(
+            itemCount: markers.length,
+            itemBuilder: (context, index) {
+              final marker = markers[index];
+              return _buildRow(marker);
+            });
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text('Startup Names'),
-          actions: [IconButton(icon: Icon(Icons.list), onPressed: _pushSaved)]),
-      body: _buildSuggestions(),
+      appBar: AppBar(title: Text('Cracker app markers')),
+      body: _buildList(),
     );
   }
 }
