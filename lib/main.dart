@@ -1,19 +1,21 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-void main() => runApp(CrackerApp());
-
-class CrackerApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+void main() {
+  final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
+  ValueNotifier<GraphQLClient> client =
+      ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: httpLink));
+  runApp(GraphQLProvider(
+    client: client,
+    child: MaterialApp(
       title: 'Cracker app',
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
       home: RandomWords(),
-    );
-  }
+    ),
+  ));
 }
 
 class RandomWords extends StatefulWidget {
