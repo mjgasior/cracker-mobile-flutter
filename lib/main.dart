@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart' as http;
 
 final FlutterAppAuth appAuth = FlutterAppAuth();
@@ -16,12 +17,28 @@ const AUTH0_ISSUER = 'https://$AUTH0_DOMAIN';
 
 void main() => runApp(CrackerApp());
 
-class CrackerApp extends StatefulWidget {
-  @override
-  _CrackerAppState createState() => _CrackerAppState();
+class CrackerApp extends StatelessWidget {
+  Widget build(BuildContext context) {
+    final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
+    ValueNotifier<GraphQLClient> client =
+        ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: httpLink));
+
+    return GraphQLProvider(
+      client: client,
+      child: MaterialApp(
+        title: 'Cracker app',
+        home: Auth0App(),
+      ),
+    );
+  }
 }
 
-class _CrackerAppState extends State<CrackerApp> {
+class Auth0App extends StatefulWidget {
+  @override
+  _Auth0AppState createState() => _Auth0AppState();
+}
+
+class _Auth0AppState extends State<Auth0App> {
   bool isBusy = false;
   bool isLoggedIn = false;
   String errorMessage;
