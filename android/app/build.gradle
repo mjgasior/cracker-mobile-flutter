@@ -38,11 +38,14 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.cracker_app"
-        minSdkVersion 16
+        applicationId "com.cracker.app"
+        minSdkVersion 18
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders = [
+                appAuthRedirectScheme: 'com.cracker.app'
+        ]
     }
 
     buildTypes {
