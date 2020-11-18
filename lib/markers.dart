@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-String readRepositories = """
+String readMarkers = """
     {
     markers {
       _id
@@ -36,7 +36,7 @@ class Markers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Query(
       options: QueryOptions(
-        documentNode: gql(readRepositories),
+        documentNode: gql(readMarkers),
       ),
       builder: (QueryResult result,
           {VoidCallback refetch, FetchMore fetchMore}) {
