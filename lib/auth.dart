@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cracker_app/login.dart';
 import 'package:cracker_app/markers.dart';
 import 'package:cracker_app/profile.dart';
+import 'package:cracker_app/version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -28,6 +29,7 @@ class _Auth0AppState extends State<Auth0App> {
   String errorMessage;
   String name;
   String picture;
+  String accessToken = "";
 
   Map<String, dynamic> parseIdToken(String idToken) {
     final parts = idToken.split(r'.');
@@ -88,6 +90,7 @@ class _Auth0AppState extends State<Auth0App> {
         isLoggedIn = true;
         name = idToken['name'];
         picture = profile['picture'];
+        accessToken = result.accessToken;
       });
     } catch (e, s) {
       print('login error: $e - stack: $s');
@@ -108,7 +111,9 @@ class _Auth0AppState extends State<Auth0App> {
 
   void initAction() async {
     final storedRefreshToken = await secureStorage.read(key: 'refresh_token');
-    if (storedRefreshToken == null) return;
+    if (storedRefreshToken == null) {
+      return;
+    }
 
     setState(() {
       isBusy = true;
@@ -132,6 +137,7 @@ class _Auth0AppState extends State<Auth0App> {
         isLoggedIn = true;
         name = idToken['name'];
         picture = profile['picture'];
+        accessToken = response.accessToken;
       });
     } catch (e, s) {
       print('error on refresh token: $e - stack: $s');
@@ -154,7 +160,7 @@ class _Auth0AppState extends State<Auth0App> {
             title: Text('Auth0 Demo'),
           ),
           body: Column(
-            children: [content, Markers()],
+            children: [content, Markers(), Version(isLoggedIn, accessToken)],
           )),
     );
   }
