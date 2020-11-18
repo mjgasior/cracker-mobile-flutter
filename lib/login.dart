@@ -1,4 +1,3 @@
-import 'package:cracker_app/markers.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -19,7 +18,6 @@ class Login extends StatelessWidget {
           child: Text('Login now!'),
         ),
         Text(loginError ?? ''),
-        Markers()
       ],
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cracker_app/login.dart';
+import 'package:cracker_app/markers.dart';
 import 'package:cracker_app/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
@@ -140,20 +141,21 @@ class _Auth0AppState extends State<Auth0App> {
 
   @override
   Widget build(BuildContext context) {
+    final content = isBusy
+        ? CircularProgressIndicator()
+        : isLoggedIn
+            ? Profile(logoutAction, name, picture)
+            : Login(loginAction, errorMessage);
+
     return MaterialApp(
       title: 'Auth0 Demo',
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Auth0 Demo'),
-        ),
-        body: Center(
-          child: isBusy
-              ? CircularProgressIndicator()
-              : isLoggedIn
-                  ? Profile(logoutAction, name, picture)
-                  : Login(loginAction, errorMessage),
-        ),
-      ),
+          appBar: AppBar(
+            title: Text('Auth0 Demo'),
+          ),
+          body: Column(
+            children: [content, Markers()],
+          )),
     );
   }
 }
