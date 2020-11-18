@@ -19,6 +19,10 @@ const AUTH0_REDIRECT_URI = 'com.cracker.app://login-callback';
 const AUTH0_ISSUER = 'https://$AUTH0_DOMAIN';
 
 class Auth0App extends StatefulWidget {
+  final loginAction;
+
+  const Auth0App(this.loginAction);
+
   @override
   _Auth0AppState createState() => _Auth0AppState();
 }
@@ -92,6 +96,8 @@ class _Auth0AppState extends State<Auth0App> {
         picture = profile['picture'];
         accessToken = result.accessToken;
       });
+
+      widget.loginAction(result.accessToken);
     } catch (e, s) {
       print('login error: $e - stack: $s');
 
@@ -139,6 +145,8 @@ class _Auth0AppState extends State<Auth0App> {
         picture = profile['picture'];
         accessToken = response.accessToken;
       });
+
+      widget.loginAction(response.accessToken);
     } catch (e, s) {
       print('error on refresh token: $e - stack: $s');
       logoutAction();
@@ -154,10 +162,10 @@ class _Auth0AppState extends State<Auth0App> {
             : Login(loginAction, errorMessage);
 
     return MaterialApp(
-      title: 'Auth0 Demo',
+      title: 'Auth0 demo app',
       home: Scaffold(
           appBar: AppBar(
-            title: Text('Auth0 Demo'),
+            title: Text('Auth0 demo app'),
           ),
           body: Column(
             children: [content, Markers(), Version(isLoggedIn, accessToken)],

@@ -4,17 +4,54 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() => runApp(CrackerApp());
 
-class CrackerApp extends StatelessWidget {
-  Widget build(BuildContext context) {
+class CrackerApp extends StatefulWidget {
+  @override
+  _CrackerAppState createState() => _CrackerAppState();
+}
+
+class _CrackerAppState extends State<CrackerApp> {
+  ValueNotifier<GraphQLClient> client;
+
+  void initializeAuth(accessToken) {
     final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
-    ValueNotifier<GraphQLClient> client =
+    final authLink = AuthLink(
+      getToken: () async => 'Bearer $accessToken',
+    );
+
+    var link = authLink.concat(httpLink);
+
+    ValueNotifier<GraphQLClient> newClient =
+        ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: link));
+
+    setState(() {
+      client = newClient;
+    });
+  }
+
+  @override
+  void initState() {
+    final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
+    ValueNotifier<GraphQLClient> newClient =
         ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: httpLink));
+
+    setState(() {
+      client = newClient;
+    });
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (client == null) {
+      return Text("Loading...");
+    }
 
     return GraphQLProvider(
       client: client,
       child: MaterialApp(
         title: 'Cracker app',
-        home: Auth0App(),
+        home: Auth0App(this.initializeAuth),
       ),
     );
   }
