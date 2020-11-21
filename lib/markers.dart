@@ -49,17 +49,13 @@ class Markers extends StatelessWidget {
         }
 
         List markers = result.data['markers'];
-
-        return Text(markers[0]['english']['name']);
-
-        /*
-        return ListView.builder(
-            itemCount: markers.length,
-            itemBuilder: (context, index) {
-              final marker = markers[index];
-              return _buildRow(marker);
-            });
-            */
+        return Expanded(
+            child: ListView.builder(
+                itemCount: markers.length,
+                itemBuilder: (context, index) {
+                  final marker = markers[index];
+                  return _buildRow(marker);
+                }));
       },
     );
   }
