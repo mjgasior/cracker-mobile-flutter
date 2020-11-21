@@ -18,7 +18,6 @@ class Version extends StatelessWidget {
     var message = "Logged in";
 
     if (this.accessToken != null) {
-      // message += this.accessToken;
       return Query(
         options: QueryOptions(
           documentNode: gql(readVersion),
