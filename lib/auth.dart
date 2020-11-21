@@ -17,6 +17,7 @@ const AUTH0_CLIENT_ID = 'KZZWiCz61h8DNxs1DSYxPM7xfxkLDEKF';
 
 const AUTH0_REDIRECT_URI = 'com.cracker.app://login-callback';
 const AUTH0_ISSUER = 'https://$AUTH0_DOMAIN';
+const $AUTH0_AUDIENCE = 'https://cracker.app';
 
 class Auth0App extends StatefulWidget {
   final loginAction;
@@ -75,10 +76,11 @@ class _Auth0AppState extends State<Auth0App> {
       final AuthorizationTokenResponse result =
           await appAuth.authorizeAndExchangeCode(
         AuthorizationTokenRequest(
-          AUTH0_CLIENT_ID,
-          AUTH0_REDIRECT_URI,
+          AUTH0_CLIENT_ID, AUTH0_REDIRECT_URI,
           issuer: 'https://$AUTH0_DOMAIN',
           scopes: ['openid', 'profile', 'offline_access'],
+          discoveryUrl: '$AUTH0_ISSUER/.well-known/openid-configuration',
+          additionalParameters: {"audience": $AUTH0_AUDIENCE},
           // promptValues: ['login']
         ),
       );
@@ -131,6 +133,8 @@ class _Auth0AppState extends State<Auth0App> {
         AUTH0_REDIRECT_URI,
         issuer: AUTH0_ISSUER,
         refreshToken: storedRefreshToken,
+        discoveryUrl: '$AUTH0_ISSUER/.well-known/openid-configuration',
+        additionalParameters: {"audience": $AUTH0_AUDIENCE},
       ));
 
       final idToken = parseIdToken(response.idToken);

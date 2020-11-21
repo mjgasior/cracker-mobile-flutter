@@ -33,7 +33,7 @@ class Version extends StatelessWidget {
             return Text('Loading');
           }
 
-          return Text("Got it");
+          return Text("Got the version ${result.data['getVersion']}");
         },
       );
     }
