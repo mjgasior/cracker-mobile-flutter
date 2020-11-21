@@ -9,15 +9,12 @@ String readVersion = """
 
 class Version extends StatelessWidget {
   final isLoggedIn;
-  final accessToken;
 
-  const Version(this.isLoggedIn, this.accessToken);
+  const Version(this.isLoggedIn);
 
   @override
   Widget build(BuildContext context) {
-    var message = "Logged in";
-
-    if (this.accessToken != null) {
+    if (this.isLoggedIn) {
       return Query(
         options: QueryOptions(
           documentNode: gql(readVersion),
@@ -37,6 +34,6 @@ class Version extends StatelessWidget {
       );
     }
 
-    return Text(message);
+    return Text("Cracker app");
   }
 }

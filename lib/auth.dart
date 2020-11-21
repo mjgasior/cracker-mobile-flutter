@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:cracker_app/login.dart';
-import 'package:cracker_app/markers.dart';
-import 'package:cracker_app/profile.dart';
-import 'package:cracker_app/version.dart';
+import 'package:cracker_app/+widgets/login.dart';
+import 'package:cracker_app/+widgets/markers.dart';
+import 'package:cracker_app/+widgets/profile.dart';
+import 'package:cracker_app/+widgets/version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -166,7 +166,7 @@ class _Auth0AppState extends State<Auth0App> {
             : Login(loginAction, errorMessage);
 
     return Column(
-      children: [content, Markers(), Version(isLoggedIn, accessToken)],
+      children: [content, Markers(), Version(isLoggedIn)],
     );
   }
 }

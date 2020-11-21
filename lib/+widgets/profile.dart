@@ -13,6 +13,7 @@ class Profile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
+          margin: const EdgeInsets.all(10.0),
           width: 150,
           height: 150,
           decoration: BoxDecoration(
