@@ -18,7 +18,7 @@ class _CrackerAppState extends State<CrackerApp> {
       getToken: () async => 'Bearer $accessToken',
     );
 
-    var link = authLink.concat(httpLink);
+    final link = authLink.concat(httpLink);
 
     ValueNotifier<GraphQLClient> newClient =
         ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: link));
@@ -50,9 +50,11 @@ class _CrackerAppState extends State<CrackerApp> {
     return GraphQLProvider(
       client: client,
       child: MaterialApp(
-        title: 'Cracker app',
-        home: Auth0App(this.initializeAuth),
-      ),
+          home: Scaffold(
+              appBar: AppBar(
+                title: Text('Cracker app'),
+              ),
+              body: Auth0App(this.initializeAuth))),
     );
   }
 }

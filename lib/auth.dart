@@ -76,12 +76,12 @@ class _Auth0AppState extends State<Auth0App> {
       final AuthorizationTokenResponse result =
           await appAuth.authorizeAndExchangeCode(
         AuthorizationTokenRequest(
-          AUTH0_CLIENT_ID, AUTH0_REDIRECT_URI,
+          AUTH0_CLIENT_ID,
+          AUTH0_REDIRECT_URI,
           issuer: 'https://$AUTH0_DOMAIN',
           scopes: ['openid', 'profile', 'offline_access'],
           discoveryUrl: '$AUTH0_ISSUER/.well-known/openid-configuration',
           additionalParameters: {"audience": $AUTH0_AUDIENCE},
-          // promptValues: ['login']
         ),
       );
 
@@ -165,15 +165,8 @@ class _Auth0AppState extends State<Auth0App> {
             ? Profile(logoutAction, name, picture)
             : Login(loginAction, errorMessage);
 
-    return MaterialApp(
-      title: 'Auth0 demo app',
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Auth0 demo app'),
-          ),
-          body: Column(
-            children: [content, Markers(), Version(isLoggedIn, accessToken)],
-          )),
+    return Column(
+      children: [content, Markers(), Version(isLoggedIn, accessToken)],
     );
   }
 }
