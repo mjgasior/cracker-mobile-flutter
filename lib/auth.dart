@@ -20,9 +20,10 @@ const AUTH0_ISSUER = 'https://$AUTH0_DOMAIN';
 const $AUTH0_AUDIENCE = 'https://cracker.app';
 
 class Auth0App extends StatefulWidget {
-  final loginAction;
+  final onLoginCallback;
+  final onLogoutCallback;
 
-  const Auth0App(this.loginAction);
+  const Auth0App(this.onLoginCallback, this.onLogoutCallback);
 
   @override
   _Auth0AppState createState() => _Auth0AppState();
@@ -60,6 +61,7 @@ class _Auth0AppState extends State<Auth0App> {
 
   void logoutAction() async {
     await secureStorage.delete(key: 'refresh_token');
+    widget.onLogoutCallback();
     setState(() {
       isLoggedIn = false;
       isBusy = false;
@@ -99,7 +101,7 @@ class _Auth0AppState extends State<Auth0App> {
         accessToken = result.accessToken;
       });
 
-      widget.loginAction(result.accessToken);
+      widget.onLoginCallback(result.accessToken);
     } catch (e, s) {
       print('login error: $e - stack: $s');
 
@@ -150,7 +152,7 @@ class _Auth0AppState extends State<Auth0App> {
         accessToken = response.accessToken;
       });
 
-      widget.loginAction(response.accessToken);
+      widget.onLoginCallback(response.accessToken);
     } catch (e, s) {
       print('error on refresh token: $e - stack: $s');
       logoutAction();
@@ -160,7 +162,9 @@ class _Auth0AppState extends State<Auth0App> {
   @override
   Widget build(BuildContext context) {
     final content = isBusy
-        ? CircularProgressIndicator()
+        ? Padding(
+            padding: const EdgeInsets.all(30),
+            child: CircularProgressIndicator())
         : isLoggedIn
             ? Profile(logoutAction, name, picture)
             : Login(loginAction, errorMessage);

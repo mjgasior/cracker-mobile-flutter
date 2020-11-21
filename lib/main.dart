@@ -9,11 +9,13 @@ class CrackerApp extends StatefulWidget {
   _CrackerAppState createState() => _CrackerAppState();
 }
 
+const $API_ADDRESS = 'https://cracker.red/api';
+
 class _CrackerAppState extends State<CrackerApp> {
   ValueNotifier<GraphQLClient> client;
 
-  void initializeAuth(accessToken) {
-    final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
+  void initializeClientWithToken(accessToken) {
+    final HttpLink httpLink = HttpLink(uri: $API_ADDRESS);
     final authLink = AuthLink(
       getToken: () async => 'Bearer $accessToken',
     );
@@ -28,15 +30,19 @@ class _CrackerAppState extends State<CrackerApp> {
     });
   }
 
-  @override
-  void initState() {
-    final HttpLink httpLink = HttpLink(uri: 'https://cracker.red/api');
+  void initializeClient() {
+    final HttpLink httpLink = HttpLink(uri: $API_ADDRESS);
     ValueNotifier<GraphQLClient> newClient =
         ValueNotifier(GraphQLClient(cache: InMemoryCache(), link: httpLink));
 
     setState(() {
       client = newClient;
     });
+  }
+
+  @override
+  void initState() {
+    this.initializeClient();
 
     super.initState();
   }
@@ -54,7 +60,8 @@ class _CrackerAppState extends State<CrackerApp> {
               appBar: AppBar(
                 title: Text('Cracker app'),
               ),
-              body: Auth0App(this.initializeAuth))),
+              body: Auth0App(
+                  this.initializeClientWithToken, this.initializeClient))),
     );
   }
 }

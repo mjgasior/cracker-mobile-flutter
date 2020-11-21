@@ -14,8 +14,8 @@ class Profile extends StatelessWidget {
       children: <Widget>[
         Container(
           margin: const EdgeInsets.all(10.0),
-          width: 150,
-          height: 150,
+          width: 100,
+          height: 100,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.blue, width: 4.0),
             shape: BoxShape.circle,
@@ -25,9 +25,9 @@ class Profile extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 24.0),
+        SizedBox(height: 14.0),
         Text('Name: $name'),
-        SizedBox(height: 48.0),
+        SizedBox(height: 18.0),
         RaisedButton(
           onPressed: () {
             logoutAction();
