@@ -35,7 +35,7 @@ class _MarkersState extends State<Markers> {
   Widget _buildRow(dynamic marker) {
     final double lat1 = marker['latitude'];
     final double lon1 = marker['longitude'];
-    String positionLabel;
+    String positionLabel = "";
 
     if (userLocation != null) {
       final double lat2 = userLocation.latitude;
