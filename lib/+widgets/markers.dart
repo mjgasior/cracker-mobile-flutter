@@ -1,4 +1,4 @@
-import 'package:cracker_app/+widgets/markerTile.dart';
+import 'package:cracker_app/+widgets/marker_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 

@@ -1,25 +1,5 @@
+import 'package:cracker_app/+widgets/marker_details.dart';
 import 'package:flutter/material.dart';
-
-class DetailScreen extends StatelessWidget {
-  final marker;
-
-  const DetailScreen(this.marker);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: FlatButton(
-          child: Text('${marker['polish']['name']} was tapped!'),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-    );
-  }
-}
 
 class MarkerTile extends StatelessWidget {
   final marker;
@@ -35,7 +15,7 @@ class MarkerTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
-            return DetailScreen(marker);
+            return MarkerDetails(marker);
           }),
         );
       },

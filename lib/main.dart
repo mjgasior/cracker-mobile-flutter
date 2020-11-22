@@ -1,4 +1,4 @@
-import 'package:cracker_app/auth.dart';
+import 'package:cracker_app/auth0_app.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
