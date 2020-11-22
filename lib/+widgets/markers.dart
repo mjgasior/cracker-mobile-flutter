@@ -76,7 +76,7 @@ class _MarkersState extends State<Markers> {
   void initState() {
     super.initState();
 
-    /*StreamSubscription<Position> geolocatorStream =
+    StreamSubscription<Position> geolocatorStream =
         Geolocator.getPositionStream(timeInterval: 1000)
             .listen((Position position) {
       if (mounted) {
@@ -92,17 +92,16 @@ class _MarkersState extends State<Markers> {
               position.longitude.toString());
     });
 
-     setState(() {
+    setState(() {
       positionStream = geolocatorStream;
     });
-    */
   }
 
   @override
   void deactivate() {
     // TODO: implement deactivate
     print("deactivate");
-    // positionStream.cancel();
+    positionStream.cancel();
     super.deactivate();
   }
 

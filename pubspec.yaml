@@ -28,7 +28,7 @@ dependencies:
   english_words: ^3.1.5
   flutter_appauth: ^0.9.2+6
   flutter_secure_storage: ^3.3.5
-  geolocator: ^6.1.7
+  geolocator: ^6.0.0
   graphql_flutter: ^3.0.0
   http: ^0.12.2
 
