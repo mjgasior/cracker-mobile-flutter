@@ -1,3 +1,4 @@
+import 'package:cracker_app/+widgets/marker_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -21,15 +22,8 @@ String readMarkers = """
 """;
 
 class Markers extends StatelessWidget {
-  final _biggerFont = TextStyle(fontSize: 18.0);
-
   Widget _buildRow(dynamic marker) {
-    return ListTile(
-      title: Text(
-        marker['english']['name'],
-        style: _biggerFont,
-      ),
-    );
+    return MarkerTile(marker);
   }
 
   @override

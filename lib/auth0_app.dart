@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:cracker_app/login.dart';
-import 'package:cracker_app/markers.dart';
-import 'package:cracker_app/profile.dart';
-import 'package:cracker_app/version.dart';
+import 'package:cracker_app/+widgets/login.dart';
+import 'package:cracker_app/+widgets/markers.dart';
+import 'package:cracker_app/+widgets/profile.dart';
+import 'package:cracker_app/+widgets/version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -20,9 +20,10 @@ const AUTH0_ISSUER = 'https://$AUTH0_DOMAIN';
 const $AUTH0_AUDIENCE = 'https://cracker.app';
 
 class Auth0App extends StatefulWidget {
-  final loginAction;
+  final onLoginCallback;
+  final onLogoutCallback;
 
-  const Auth0App(this.loginAction);
+  const Auth0App(this.onLoginCallback, this.onLogoutCallback);
 
   @override
   _Auth0AppState createState() => _Auth0AppState();
@@ -60,6 +61,7 @@ class _Auth0AppState extends State<Auth0App> {
 
   void logoutAction() async {
     await secureStorage.delete(key: 'refresh_token');
+    widget.onLogoutCallback();
     setState(() {
       isLoggedIn = false;
       isBusy = false;
@@ -76,12 +78,12 @@ class _Auth0AppState extends State<Auth0App> {
       final AuthorizationTokenResponse result =
           await appAuth.authorizeAndExchangeCode(
         AuthorizationTokenRequest(
-          AUTH0_CLIENT_ID, AUTH0_REDIRECT_URI,
+          AUTH0_CLIENT_ID,
+          AUTH0_REDIRECT_URI,
           issuer: 'https://$AUTH0_DOMAIN',
           scopes: ['openid', 'profile', 'offline_access'],
           discoveryUrl: '$AUTH0_ISSUER/.well-known/openid-configuration',
           additionalParameters: {"audience": $AUTH0_AUDIENCE},
-          // promptValues: ['login']
         ),
       );
 
@@ -99,7 +101,7 @@ class _Auth0AppState extends State<Auth0App> {
         accessToken = result.accessToken;
       });
 
-      widget.loginAction(result.accessToken);
+      widget.onLoginCallback(result.accessToken);
     } catch (e, s) {
       print('login error: $e - stack: $s');
 
@@ -150,7 +152,7 @@ class _Auth0AppState extends State<Auth0App> {
         accessToken = response.accessToken;
       });
 
-      widget.loginAction(response.accessToken);
+      widget.onLoginCallback(response.accessToken);
     } catch (e, s) {
       print('error on refresh token: $e - stack: $s');
       logoutAction();
@@ -160,20 +162,15 @@ class _Auth0AppState extends State<Auth0App> {
   @override
   Widget build(BuildContext context) {
     final content = isBusy
-        ? CircularProgressIndicator()
+        ? Padding(
+            padding: const EdgeInsets.all(30),
+            child: CircularProgressIndicator())
         : isLoggedIn
             ? Profile(logoutAction, name, picture)
             : Login(loginAction, errorMessage);
 
-    return MaterialApp(
-      title: 'Auth0 demo app',
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Auth0 demo app'),
-          ),
-          body: Column(
-            children: [content, Markers(), Version(isLoggedIn, accessToken)],
-          )),
+    return Column(
+      children: [content, Markers(), Version(isLoggedIn)],
     );
   }
 }
