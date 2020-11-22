@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cracker_app/+widgets/marker_tile.dart';
@@ -31,6 +32,7 @@ class Markers extends StatefulWidget {
 
 class _MarkersState extends State<Markers> {
   Position userLocation;
+  StreamSubscription<Position> positionStream;
 
   Widget _buildRow(dynamic marker) {
     final double lat1 = marker['latitude'];
@@ -73,18 +75,35 @@ class _MarkersState extends State<Markers> {
   @override
   void initState() {
     super.initState();
-    print("This is here");
-    Geolocator.getPositionStream(timeInterval: 1000)
-        .listen((Position position) {
-      setState(() {
-        userLocation = position;
-      });
+
+    /*StreamSubscription<Position> geolocatorStream =
+        Geolocator.getPositionStream(timeInterval: 1000)
+            .listen((Position position) {
+      if (mounted) {
+        setState(() {
+          userLocation = position;
+        });
+      }
+
       print(position == null
           ? 'Unknown'
           : position.latitude.toString() +
               ', ' +
               position.longitude.toString());
     });
+
+     setState(() {
+      positionStream = geolocatorStream;
+    });
+    */
+  }
+
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    print("deactivate");
+    // positionStream.cancel();
+    super.deactivate();
   }
 
   @override

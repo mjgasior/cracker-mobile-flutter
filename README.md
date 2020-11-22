@@ -29,3 +29,4 @@ samples, guidance on mobile development, and a full API reference.
 ## Resources:
 
 - [Auth0 with Flutter](https://auth0.com/blog/get-started-with-flutter-authentication/)
+- [Widget lifecycle in Flutter](https://stackoverflow.com/questions/41479255/life-cycle-in-flutter)

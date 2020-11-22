@@ -162,13 +162,15 @@ class _Auth0AppState extends State<Auth0App> {
 
   @override
   Widget build(BuildContext context) {
-    final content = isBusy
-        ? Padding(
-            padding: const EdgeInsets.all(30),
-            child: CircularProgressIndicator())
-        : isLoggedIn
-            ? Profile(logoutAction, name, picture)
-            : Login(loginAction, errorMessage);
+    if (isBusy) {
+      return Padding(
+          padding: const EdgeInsets.all(30),
+          child: CircularProgressIndicator());
+    }
+
+    final content = isLoggedIn
+        ? Profile(logoutAction, name, picture)
+        : Login(loginAction, errorMessage);
 
     return Column(
       children: [content, Markers(), PositionTester(), Version(isLoggedIn)],
