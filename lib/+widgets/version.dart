@@ -29,7 +29,7 @@ class Version extends StatelessWidget {
             return Text('Loading');
           }
 
-          return Text("Got the version ${result.data['getVersion']}");
+          return Text("Current API version: ${result.data['getVersion']}");
         },
       );
     }
