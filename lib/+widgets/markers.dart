@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cracker_app/+widgets/marker_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -31,29 +33,42 @@ class _MarkersState extends State<Markers> {
   Position userLocation;
 
   Widget _buildRow(dynamic marker) {
-    return MarkerTile(marker);
+    final double lat1 = marker['latitude'];
+    final double lon1 = marker['longitude'];
+    String positionLabel;
+
+    if (userLocation != null) {
+      final double lat2 = userLocation.latitude;
+      final double lon2 = userLocation.longitude;
+      positionLabel =
+          _getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2).toString();
+    }
+
+    return MarkerTile(marker, positionLabel);
   }
 
-  /*
-  export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    const earthRadiusInKm = 6371;
-    const deltaLatitude = degreesToRadians(lat2 - lat1);
-    const deltaLongitude = degreesToRadians(lon2 - lon1);
+  double _getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    const EARTH_RADIUS_IN_KM = 6371;
 
-    const a =
-      Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2) +
-      Math.cos(degreesToRadians(lat1)) *
-        Math.cos(degreesToRadians(lat2)) *
-        Math.sin(deltaLongitude / 2) *
-        Math.sin(deltaLongitude / 2);
+    final double deltaLatitude = _degreesToRadians(lat2 - lat1);
+    final double deltaLongitude = _degreesToRadians(lon2 - lon1);
 
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    final a = sin(deltaLatitude / 2) * sin(deltaLatitude / 2) +
+        cos(_degreesToRadians(lat1)) *
+            cos(_degreesToRadians(lat2)) *
+            sin(deltaLongitude / 2) *
+            sin(deltaLongitude / 2);
 
-    const distanceInKm = earthRadiusInKm * c;
+    final double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    final double distanceInKm = EARTH_RADIUS_IN_KM * c;
 
     return distanceInKm;
   }
-   */
+
+  double _degreesToRadians(double degrees) {
+    return degrees * pi / 180;
+  }
 
   @override
   void initState() {
