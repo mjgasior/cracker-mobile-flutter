@@ -44,7 +44,7 @@ class _MarkersState extends State<Markers> {
 
       positionLabel =
           Geolocator.distanceBetween(lat1, lon1, lat2, lon2).toString();
-      
+
       print(Geolocator.bearingBetween(lat1, lon1, lat2, lon2));
     }
 
@@ -57,7 +57,7 @@ class _MarkersState extends State<Markers> {
 
     // ignore: cancel_subscriptions
     StreamSubscription<Position> geolocatorStream =
-        Geolocator.getPositionStream(timeInterval: 1000)
+        Geolocator.getPositionStream(timeInterval: 10000)
             .listen((Position position) {
       if (mounted) {
         setState(() {
@@ -79,8 +79,6 @@ class _MarkersState extends State<Markers> {
 
   @override
   void deactivate() {
-    // TODO: implement deactivate
-    print("deactivate");
     positionStream.cancel();
     super.deactivate();
   }

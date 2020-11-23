@@ -173,7 +173,7 @@ class _Auth0AppState extends State<Auth0App> {
         : Login(loginAction, errorMessage);
 
     return Column(
-      children: [content, Markers(), PositionTester(), Version(isLoggedIn)],
+      children: [content, Markers(), Version(isLoggedIn)],
     );
   }
 }
