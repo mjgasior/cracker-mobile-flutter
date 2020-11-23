@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:cracker_app/+widgets/marker_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 String readMarkers = """
@@ -21,9 +24,63 @@ String readMarkers = """
   }
 """;
 
-class Markers extends StatelessWidget {
+class Markers extends StatefulWidget {
+  @override
+  _MarkersState createState() => _MarkersState();
+}
+
+class _MarkersState extends State<Markers> {
+  Position userLocation;
+  StreamSubscription<Position> positionStream;
+
   Widget _buildRow(dynamic marker) {
-    return MarkerTile(marker);
+    final double lat1 = marker['latitude'];
+    final double lon1 = marker['longitude'];
+    String positionLabel = "";
+
+    if (userLocation != null) {
+      final double lat2 = userLocation.latitude;
+      final double lon2 = userLocation.longitude;
+
+      positionLabel =
+          Geolocator.distanceBetween(lat1, lon1, lat2, lon2).toString();
+
+      print(Geolocator.bearingBetween(lat1, lon1, lat2, lon2));
+    }
+
+    return MarkerTile(marker, positionLabel);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // ignore: cancel_subscriptions
+    StreamSubscription<Position> geolocatorStream =
+        Geolocator.getPositionStream(timeInterval: 10000)
+            .listen((Position position) {
+      if (mounted) {
+        setState(() {
+          userLocation = position;
+        });
+      }
+
+      print(position == null
+          ? 'Unknown'
+          : position.latitude.toString() +
+              ', ' +
+              position.longitude.toString());
+    });
+
+    setState(() {
+      positionStream = geolocatorStream;
+    });
+  }
+
+  @override
+  void deactivate() {
+    positionStream.cancel();
+    super.deactivate();
   }
 
   @override
