@@ -56,7 +56,7 @@ class _MarkersState extends State<Markers> {
     super.initState();
 
     // ignore: cancel_subscriptions
-    StreamSubscription<Position> geolocatorStream =
+    /*StreamSubscription<Position> geolocatorStream =
         Geolocator.getPositionStream(timeInterval: 10000)
             .listen((Position position) {
       if (mounted) {
@@ -74,7 +74,7 @@ class _MarkersState extends State<Markers> {
 
     setState(() {
       positionStream = geolocatorStream;
-    });
+    });*/
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:cracker_app/+widgets/marker_map.dart';
 import 'package:flutter/material.dart';
 
 class MarkerDetails extends StatelessWidget {
@@ -18,7 +19,8 @@ class MarkerDetails extends StatelessWidget {
             },
           ),
           Text(marker['polish']['name']),
-          Text(marker['polish']['description'])
+          Text(marker['polish']['description']),
+          MarkerMap()
         ],
       ),
     );
