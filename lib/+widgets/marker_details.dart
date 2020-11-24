@@ -1,10 +1,12 @@
 import 'package:cracker_app/+widgets/marker_map.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MarkerDetails extends StatelessWidget {
   final marker;
+  final Position userPosition;
 
-  const MarkerDetails(this.marker);
+  const MarkerDetails(this.marker, this.userPosition);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,9 @@ class MarkerDetails extends StatelessWidget {
           ),
           Text(marker['polish']['name']),
           Text(marker['polish']['description']),
-          MarkerMap()
+          Text(marker['english']['name']),
+          Text(marker['english']['description']),
+          MarkerMap(marker, userPosition)
         ],
       ),
     );

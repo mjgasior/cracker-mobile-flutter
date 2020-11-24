@@ -1,9 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MarkerMap extends StatefulWidget {
+  final marker;
+  final Position userPosition;
+
+  const MarkerMap(this.marker, this.userPosition);
+
   @override
   State<MarkerMap> createState() => MarkerMapState();
 }
