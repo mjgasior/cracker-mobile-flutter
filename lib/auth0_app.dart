@@ -142,7 +142,8 @@ class _Auth0AppState extends State<Auth0App> {
       final idToken = parseIdToken(response.idToken);
       final profile = await getUserDetails(response.accessToken);
 
-      secureStorage.write(key: 'refresh_token', value: response.refreshToken);
+      await secureStorage.write(
+          key: 'refresh_token', value: response.refreshToken);
 
       setState(() {
         isBusy = false;
@@ -172,7 +173,7 @@ class _Auth0AppState extends State<Auth0App> {
         : Login(loginAction, errorMessage);
 
     return Column(
-      children: [content, Markers(), Version(isLoggedIn)],
+      children: [content, Markers(accessToken), Version(isLoggedIn)],
     );
   }
 }

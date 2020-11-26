@@ -25,6 +25,10 @@ String readMarkers = """
 """;
 
 class Markers extends StatefulWidget {
+  final String accessToken;
+
+  const Markers(this.accessToken);
+
   @override
   _MarkersState createState() => _MarkersState();
 }
@@ -34,7 +38,7 @@ class _MarkersState extends State<Markers> {
   StreamSubscription<Position> positionStream;
 
   Widget _buildRow(dynamic marker) {
-    return MarkerTile(marker, userLocation);
+    return MarkerTile(marker, userLocation, widget.accessToken);
   }
 
   @override

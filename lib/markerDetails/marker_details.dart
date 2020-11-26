@@ -6,8 +6,9 @@ import 'package:geolocator/geolocator.dart';
 class MarkerDetails extends StatelessWidget {
   final marker;
   final Position userPosition;
+  final String accessToken;
 
-  const MarkerDetails(this.marker, this.userPosition);
+  const MarkerDetails(this.marker, this.userPosition, this.accessToken);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class MarkerDetails extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          MarkerImage(imageFilename),
+          MarkerImage(imageFilename, accessToken),
           Text(marker['polish']['name']),
           Text(marker['polish']['description']),
           Text(marker['english']['name']),

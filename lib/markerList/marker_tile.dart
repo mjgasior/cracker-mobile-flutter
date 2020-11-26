@@ -6,8 +6,9 @@ class MarkerTile extends StatelessWidget {
   final _biggerFont = TextStyle(fontSize: 18.0);
   final marker;
   final Position userPosition;
+  final String accessToken;
 
-  MarkerTile(this.marker, this.userPosition);
+  MarkerTile(this.marker, this.userPosition, this.accessToken);
 
   String _getLabel() {
     final double lat1 = marker['latitude'];
@@ -32,7 +33,7 @@ class MarkerTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
-            return MarkerDetails(marker, userPosition);
+            return MarkerDetails(marker, userPosition, accessToken);
           }),
         );
       },
