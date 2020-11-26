@@ -1,3 +1,4 @@
+import 'package:cracker_app/markerDetails/widgets/marker_image.dart';
 import 'package:cracker_app/markerDetails/widgets/marker_map.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -15,9 +16,7 @@ class MarkerDetails extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          imageFilename != null
-              ? Image.network('https://cracker.red/images/$imageFilename')
-              : Text(''),
+          MarkerImage(imageFilename),
           Text(marker['polish']['name']),
           Text(marker['polish']['description']),
           Text(marker['english']['name']),
