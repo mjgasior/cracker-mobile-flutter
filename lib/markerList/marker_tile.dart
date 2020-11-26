@@ -1,4 +1,4 @@
-import 'package:cracker_app/+widgets/marker_details.dart';
+import 'package:cracker_app/markerDetails/marker_details.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 

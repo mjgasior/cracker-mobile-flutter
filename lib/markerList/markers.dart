@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cracker_app/+widgets/marker_tile.dart';
+import 'package:cracker_app/markerList/marker_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';

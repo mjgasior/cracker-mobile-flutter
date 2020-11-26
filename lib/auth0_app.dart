@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-import 'package:cracker_app/+widgets/login.dart';
-import 'package:cracker_app/+widgets/markers.dart';
-import 'package:cracker_app/+widgets/profile.dart';
-import 'package:cracker_app/+widgets/version.dart';
+import 'package:cracker_app/widgets/login.dart';
+import 'package:cracker_app/widgets/profile.dart';
+import 'package:cracker_app/widgets/version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+
+import 'file:///D:/projects/cracker-mobile-flutter/lib/markerList/markers.dart';
 
 final FlutterAppAuth appAuth = FlutterAppAuth();
 final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
