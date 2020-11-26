@@ -34,21 +34,7 @@ class _MarkersState extends State<Markers> {
   StreamSubscription<Position> positionStream;
 
   Widget _buildRow(dynamic marker) {
-    final double lat1 = marker['latitude'];
-    final double lon1 = marker['longitude'];
-    String positionLabel = "";
-
-    if (userLocation != null) {
-      final double lat2 = userLocation.latitude;
-      final double lon2 = userLocation.longitude;
-
-      positionLabel =
-          Geolocator.distanceBetween(lat1, lon1, lat2, lon2).toString();
-
-      print(Geolocator.bearingBetween(lat1, lon1, lat2, lon2));
-    }
-
-    return MarkerTile(marker, positionLabel);
+    return MarkerTile(marker, userLocation);
   }
 
   @override
@@ -64,12 +50,6 @@ class _MarkersState extends State<Markers> {
           userLocation = position;
         });
       }
-
-      print(position == null
-          ? 'Unknown'
-          : position.latitude.toString() +
-              ', ' +
-              position.longitude.toString());
     });
 
     setState(() {

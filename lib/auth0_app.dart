@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:cracker_app/+widgets/login.dart';
 import 'package:cracker_app/+widgets/markers.dart';
-import 'package:cracker_app/+widgets/poistion_tester.dart';
 import 'package:cracker_app/+widgets/profile.dart';
 import 'package:cracker_app/+widgets/version.dart';
 import 'package:flutter/material.dart';
