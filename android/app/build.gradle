@@ -25,6 +25,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def segmentWriteKey = properties.getProperty('segment.writeKey')
+
 android {
     compileSdkVersion 29
 
@@ -44,7 +48,8 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders = [
-                appAuthRedirectScheme: 'com.cracker.app'
+                appAuthRedirectScheme: 'com.cracker.app',
+                segmentWriteKey: segmentWriteKey
         ]
     }
 
