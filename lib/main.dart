@@ -1,5 +1,6 @@
 import 'package:cracker_app/auth0_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -69,7 +70,7 @@ class _CrackerAppState extends State<CrackerApp> {
           ],
           home: Scaffold(
               appBar: AppBar(
-                title: Text('Cracker app'),
+                title: Text(AppLocalizations.of(context).helloWorld),
               ),
               body: Auth0App(
                   this.initializeClientWithToken, this.initializeClient))),
