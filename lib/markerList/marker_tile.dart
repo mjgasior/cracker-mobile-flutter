@@ -26,6 +26,12 @@ class MarkerTile extends StatelessWidget {
     return positionLabel;
   }
 
+  String _getCurrentLocale(BuildContext context) {
+    Locale currentLocale = Localizations.localeOf(context);
+    final locale = currentLocale.toLanguageTag() == 'pl' ? 'polish' : 'english';
+    return locale;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -38,7 +44,7 @@ class MarkerTile extends StatelessWidget {
         );
       },
       title: Text(
-        marker['english']['name'],
+        marker[_getCurrentLocale(context)]['name'],
         style: _biggerFont,
       ),
       subtitle: Text(

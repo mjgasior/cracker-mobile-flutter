@@ -10,18 +10,23 @@ class MarkerDetails extends StatelessWidget {
 
   const MarkerDetails(this.marker, this.userPosition, this.accessToken);
 
+  String _getCurrentLocale(BuildContext context) {
+    Locale currentLocale = Localizations.localeOf(context);
+    final locale = currentLocale.toLanguageTag() == 'pl' ? 'polish' : 'english';
+    return locale;
+  }
+
   @override
   Widget build(BuildContext context) {
     final imageFilename = marker['imageFilename'];
+    final locale = _getCurrentLocale(context);
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
           MarkerImage(imageFilename, accessToken),
-          Text(marker['polish']['name']),
-          Text(marker['polish']['description']),
-          Text(marker['english']['name']),
-          Text(marker['english']['description']),
+          Text(marker[locale]['name']),
+          Text(marker[locale]['description']),
           MarkerMap(marker, userPosition)
         ],
       ),
