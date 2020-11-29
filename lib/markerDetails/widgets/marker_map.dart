@@ -44,12 +44,12 @@ class MarkerMapState extends State<MarkerMap> {
           mapType: MapType.normal,
           initialCameraPosition: cameraPosition,
           onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+
             if (userPosition != null) {
               controller.animateCamera(CameraUpdate.newLatLngBounds(
                   _getBounds(userPosition, markerPosition), 50));
             }
-
-            _controller.complete(controller);
           },
           markers: markers,
         ));

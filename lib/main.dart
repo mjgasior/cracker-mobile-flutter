@@ -1,5 +1,7 @@
 import 'package:cracker_app/auth0_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() => runApp(CrackerApp());
@@ -56,6 +58,15 @@ class _CrackerAppState extends State<CrackerApp> {
     return GraphQLProvider(
       client: client,
       child: MaterialApp(
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: [
+            const Locale('en', ''),
+            const Locale('pl', '')
+          ],
           home: Scaffold(
               appBar: AppBar(
                 title: Text('Cracker app'),
