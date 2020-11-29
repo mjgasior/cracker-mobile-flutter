@@ -59,6 +59,13 @@ class MarkerMapState extends State<MarkerMap> {
     if (userPosition.latitude <= markerPosition.latitude) {
       return LatLngBounds(southwest: userPosition, northeast: markerPosition);
     }
+
+    if (userPosition.longitude <= markerPosition.longitude) {
+      final southwest = LatLng(markerPosition.latitude, userPosition.longitude);
+      final northeast = LatLng(userPosition.latitude, markerPosition.longitude);
+      return LatLngBounds(southwest: southwest, northeast: northeast);
+    }
+
     return LatLngBounds(southwest: markerPosition, northeast: userPosition);
   }
 }
