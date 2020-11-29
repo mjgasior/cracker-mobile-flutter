@@ -15,6 +15,7 @@ Big thanks to :octocat: [mmBs](https://github.com/mmBs) for time and advice. :cl
 ## Packages:
 
 - `flutter_appauth` - a well-maintained wrapper package around AppAuth for Flutter developed by Michael Bui. AppAuth authenticates and authorizes users and supports the PKCE extension
+- `flutter_localizations` - package that specifies additional `MaterialApp` properties that include localization
 - `flutter_secure_storage` - library to securely persist data locally
 - `geolocator` - geolocation plugin which provides easy access to platform specific location services (FusedLocationProviderClient or if not available the LocationManager on Android and CLLocationManager on iOS)
 - `google_maps_flutter` - plugin that provides a Google Maps widget
