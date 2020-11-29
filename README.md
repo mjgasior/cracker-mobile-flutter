@@ -31,6 +31,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Resources:
 
+- [Advanced Layout Rule Even Beginners Must Know](https://medium.com/flutter-community/flutter-the-advanced-layout-rule-even-beginners-must-know-edc9516d1a2)
 - [Auth0 with Flutter](https://auth0.com/blog/get-started-with-flutter-authentication/)
 - [Hide your api keys from your android manifest file with Flutter using local.properties](https://dev.to/stevenosse/hide-your-api-keys-from-your-android-manifest-file-with-flutter-using-local-properties-3f4e)
 - [Widget lifecycle in Flutter](https://stackoverflow.com/questions/41479255/life-cycle-in-flutter)
