@@ -27,7 +27,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def segmentWriteKey = properties.getProperty('segment.writeKey')
+def googleMapsApiKey = properties.getProperty('google.mapsApiKey')
 
 android {
     compileSdkVersion 29
@@ -49,7 +49,7 @@ android {
         versionName flutterVersionName
         manifestPlaceholders = [
                 appAuthRedirectScheme: 'com.cracker.app',
-                segmentWriteKey: segmentWriteKey
+                googleMapsApiKey: googleMapsApiKey
         ]
     }
 
