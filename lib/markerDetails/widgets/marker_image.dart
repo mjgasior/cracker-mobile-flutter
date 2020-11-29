@@ -6,14 +6,20 @@ class MarkerImage extends StatelessWidget {
 
   MarkerImage(this.imageFilename, this.accessToken);
 
+  bool _hasAccessToken() {
+    return accessToken != null && accessToken != "";
+  }
+
   Widget _buildRegular() {
     if (imageFilename == null) {
       return Container();
     }
+
+    final double imageSize = _hasAccessToken() ? 200 : 70;
     return Container(
       margin: const EdgeInsets.all(10.0),
-      width: 200,
-      height: 200,
+      width: imageSize,
+      height: imageSize,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blue, width: 4.0),
         shape: BoxShape.circle,
