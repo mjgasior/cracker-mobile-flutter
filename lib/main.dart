@@ -59,10 +59,9 @@ class _CrackerAppState extends State<CrackerApp> {
       client: client,
       child: MaterialApp(
           localizationsDelegates: [
-            // ... app-specific localization delegate[s] here
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: [
             const Locale('en', ''),
@@ -70,7 +69,7 @@ class _CrackerAppState extends State<CrackerApp> {
           ],
           home: Scaffold(
               appBar: AppBar(
-                title: Text(AppLocalizations.of(context).helloWorld),
+                title: Text('Cracker app'),
               ),
               body: Auth0App(
                   this.initializeClientWithToken, this.initializeClient))),

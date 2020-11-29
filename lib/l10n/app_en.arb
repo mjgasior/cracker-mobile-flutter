@@ -1,6 +1,6 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
+  "logIn": "Log in!",
+  "@logIn": {
+    "description": "Log in button"
   }
 }
