@@ -21,15 +21,16 @@ class MarkerDetails extends StatelessWidget {
     final imageFilename = marker['imageFilename'];
     final locale = _getCurrentLocale(context);
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          MarkerImage(imageFilename, accessToken),
-          Text(marker[locale]['name']),
-          Text(marker[locale]['description']),
-          MarkerMap(marker, userPosition)
-        ],
-      ),
-    );
+        appBar: AppBar(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              MarkerImage(imageFilename, accessToken),
+              Text(marker[locale]['name']),
+              Text(marker[locale]['description']),
+              MarkerMap(marker, userPosition)
+            ],
+          ),
+        ));
   }
 }
