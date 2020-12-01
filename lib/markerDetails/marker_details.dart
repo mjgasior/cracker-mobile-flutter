@@ -26,8 +26,16 @@ class MarkerDetails extends StatelessWidget {
           child: Column(
             children: [
               MarkerImage(imageFilename, accessToken),
-              Text(marker[locale]['name']),
-              Text(marker[locale]['description']),
+              Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Text(marker[locale]['name'],
+                    style: TextStyle(fontSize: 30)),
+              ),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(marker[locale]['description'],
+                    style: TextStyle(fontSize: 16)),
+              ),
               MarkerMap(marker, userPosition)
             ],
           ),
