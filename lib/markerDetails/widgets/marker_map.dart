@@ -66,11 +66,6 @@ class MarkerMapState extends State<MarkerMap> {
     return isVisible;
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
   LatLngBounds _getBounds(LatLng userPosition, LatLng markerPosition) {
     if (userPosition.latitude <= markerPosition.latitude) {
       return LatLngBounds(southwest: userPosition, northeast: markerPosition);
