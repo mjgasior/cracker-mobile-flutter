@@ -43,16 +43,27 @@ class MarkerMapState extends State<MarkerMap> {
         child: GoogleMap(
           mapType: MapType.normal,
           initialCameraPosition: cameraPosition,
-          onMapCreated: (GoogleMapController controller) {
+          onMapCreated: (GoogleMapController controller) async {
             _controller.complete(controller);
 
-            if (userPosition != null) {
+            final bool isVisible = await _isMapVisible(controller);
+            if (isVisible && userPosition != null) {
               controller.animateCamera(CameraUpdate.newLatLngBounds(
                   _getBounds(userPosition, markerPosition), 50));
             }
           },
           markers: markers,
         ));
+  }
+
+  Future<bool> _isMapVisible(GoogleMapController controller) async {
+    final LatLngBounds x = await controller.getVisibleRegion();
+    final isVisible = x.northeast.longitude != 0 && x.southwest.longitude != 0;
+    if (!isVisible) {
+      print("There was a bad map size!");
+      print(x);
+    }
+    return isVisible;
   }
 
   LatLngBounds _getBounds(LatLng userPosition, LatLng markerPosition) {
