@@ -19,8 +19,10 @@ class MarkerTile extends StatelessWidget {
       final double lat2 = userPosition.latitude;
       final double lon2 = userPosition.longitude;
 
-      positionLabel =
-          Geolocator.distanceBetween(lat1, lon1, lat2, lon2).toString();
+      final double distance =
+          Geolocator.distanceBetween(lat1, lon1, lat2, lon2);
+
+      positionLabel = "${distance.toStringAsFixed(0)} m";
     }
 
     return positionLabel;
