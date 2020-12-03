@@ -17,7 +17,8 @@ class Profile extends StatelessWidget {
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.blue, width: 4.0),
+            border:
+                Border.all(color: Color.fromRGBO(254, 203, 0, 1), width: 4.0),
             shape: BoxShape.circle,
             image: DecorationImage(
               fit: BoxFit.fill,

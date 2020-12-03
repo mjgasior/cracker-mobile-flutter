@@ -67,9 +67,15 @@ class _CrackerAppState extends State<CrackerApp> {
             const Locale('en', ''),
             const Locale('pl', '')
           ],
+          theme: ThemeData(
+            primaryColor: Color.fromRGBO(0, 21, 41, 1),
+            accentColor: Color.fromRGBO(255, 212, 42, 1),
+            fontFamily: 'Georgia',
+          ),
           home: Scaffold(
               appBar: AppBar(
-                title: Text('Cracker app'),
+                title: Text('Cracker app',
+                    style: TextStyle(color: Color.fromRGBO(255, 212, 42, 1))),
               ),
               body: Auth0App(
                   this.initializeClientWithToken, this.initializeClient))),
