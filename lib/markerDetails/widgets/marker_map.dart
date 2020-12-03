@@ -67,16 +67,27 @@ class MarkerMapState extends State<MarkerMap> {
   }
 
   LatLngBounds _getBounds(LatLng userPosition, LatLng markerPosition) {
+    double north, east, south, west;
+
     if (userPosition.latitude <= markerPosition.latitude) {
-      return LatLngBounds(southwest: userPosition, northeast: markerPosition);
+      north = markerPosition.latitude;
+      south = userPosition.latitude;
+    } else {
+      north = userPosition.latitude;
+      south = markerPosition.latitude;
     }
 
     if (userPosition.longitude <= markerPosition.longitude) {
-      final southwest = LatLng(markerPosition.latitude, userPosition.longitude);
-      final northeast = LatLng(userPosition.latitude, markerPosition.longitude);
-      return LatLngBounds(southwest: southwest, northeast: northeast);
+      east = markerPosition.longitude;
+      west = userPosition.longitude;
+    } else {
+      east = userPosition.longitude;
+      west = markerPosition.longitude;
     }
 
-    return LatLngBounds(southwest: markerPosition, northeast: userPosition);
+    final southwest = LatLng(south, west);
+    final northeast = LatLng(north, east);
+
+    return LatLngBounds(southwest: southwest, northeast: northeast);
   }
 }
