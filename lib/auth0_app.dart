@@ -163,9 +163,7 @@ class _Auth0AppState extends State<Auth0App> {
   @override
   Widget build(BuildContext context) {
     if (isBusy) {
-      return Padding(
-          padding: const EdgeInsets.all(30),
-          child: CircularProgressIndicator());
+      return Center(child: CircularProgressIndicator());
     }
 
     final content = isLoggedIn
@@ -173,6 +171,7 @@ class _Auth0AppState extends State<Auth0App> {
         : Login(loginAction, errorMessage);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [content, Markers(accessToken), Version(isLoggedIn)],
     );
   }
