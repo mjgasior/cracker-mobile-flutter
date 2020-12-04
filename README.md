@@ -16,6 +16,7 @@ If you plan to edit the localization files present in `lib/l10n` which are of AR
 
 ## Release:
 
+0. Remember to turn off your emulator before you start the installation on a mobile device.
 1. To release the app for Android device just run `flutter build apk --release`.
 2. The `apk` file should be present in `cracker-mobile-flutter\build\app\outputs\flutter-apk` directory with the `app-release.apk` name.
 2. Download the [SDK Platform Tools](https://developer.android.com/studio/releases/platform-tools) from Android Developers website. It includes the `adb` tool, that is Android Debug Bridge. [Extract the contents](https://www.xda-developers.com/install-adb-windows-macos-linux/) of this ZIP file into an easily accessible folder (such as `C:\adb`).
