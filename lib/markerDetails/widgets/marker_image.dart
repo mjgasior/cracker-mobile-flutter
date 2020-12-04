@@ -1,3 +1,4 @@
+import 'package:cracker_app/markerDetails/widgets/extended_image.dart';
 import 'package:flutter/material.dart';
 
 class MarkerImage extends StatelessWidget {
@@ -10,7 +11,7 @@ class MarkerImage extends StatelessWidget {
     return accessToken != null && accessToken != "";
   }
 
-  Widget _buildRegular() {
+  Widget _buildRegular(BuildContext context) {
     if (imageFilename == null) {
       return Container();
     }
@@ -22,67 +23,38 @@ class MarkerImage extends StatelessWidget {
       url += '?w=30&h=30';
     }
 
-    return Container(
-      margin: const EdgeInsets.all(10.0),
-      width: imageSize,
-      height: imageSize,
-      decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(254, 203, 0, 1), width: 4.0),
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: NetworkImage(
-            url,
-            headers: {'Authorization': 'Bearer $accessToken'},
-          ),
-        ),
-      ),
-    );
+    return GestureDetector(
+        child: Hero(
+            tag: 'imageHero',
+            child: Container(
+              margin: const EdgeInsets.all(10.0),
+              width: imageSize,
+              height: imageSize,
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: Color.fromRGBO(254, 203, 0, 1), width: 4.0),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    url,
+                    headers: {'Authorization': 'Bearer $accessToken'},
+                  ),
+                ),
+              ),
+            )),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return ExtendedImage(url, accessToken);
+          }));
+        });
   }
 
   @override
-  Widget build2(BuildContext context) {
+  Widget build(BuildContext context) {
     if (imageFilename == null) {
       return Container();
     }
-    return _buildRegular();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Hero(
-        tag: 'imageHero',
-        child: Image.network(
-          'https://picsum.photos/250?image=9',
-        ),
-      ),
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) {
-          return DetailScreen();
-        }));
-      },
-    );
-  }
-}
-
-class DetailScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        child: Center(
-          child: Hero(
-            tag: 'imageHero',
-            child: Image.network(
-              'https://picsum.photos/250?image=9',
-            ),
-          ),
-        ),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-    );
+    return _buildRegular(context);
   }
 }
