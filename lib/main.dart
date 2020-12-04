@@ -75,7 +75,7 @@ class _CrackerAppState extends State<CrackerApp> {
           home: Scaffold(
               appBar: AppBar(
                 leading: Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(3.0),
                   child: Image.asset(
                     "assets/images/appicon.png",
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Profile extends StatelessWidget {
   final logoutAction;
@@ -26,14 +27,14 @@ class Profile extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 14.0),
-        Text('Name: $name'),
-        SizedBox(height: 18.0),
+        SizedBox(height: 2.0),
+        Text(name),
+        SizedBox(height: 7.0),
         RaisedButton(
           onPressed: () {
             logoutAction();
           },
-          child: Text('Logout'),
+          child: Text(AppLocalizations.of(context).logOut),
         ),
       ],
     );

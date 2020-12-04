@@ -32,7 +32,7 @@ class MarkerImage extends StatelessWidget {
         image: DecorationImage(
           fit: BoxFit.fill,
           image: NetworkImage(
-            'https://cracker.red/images/$imageFilename',
+            url,
             headers: {'Authorization': 'Bearer $accessToken'},
           ),
         ),
