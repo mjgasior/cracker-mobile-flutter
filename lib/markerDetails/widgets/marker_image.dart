@@ -41,10 +41,48 @@ class MarkerImage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build2(BuildContext context) {
     if (imageFilename == null) {
       return Container();
     }
     return _buildRegular();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Hero(
+        tag: 'imageHero',
+        child: Image.network(
+          'https://picsum.photos/250?image=9',
+        ),
+      ),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
+          return DetailScreen();
+        }));
+      },
+    );
+  }
+}
+
+class DetailScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Center(
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(
+              'https://picsum.photos/250?image=9',
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
   }
 }
