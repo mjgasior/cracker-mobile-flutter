@@ -15,18 +15,24 @@ class MarkerImage extends StatelessWidget {
       return Container();
     }
 
-    final double imageSize = _hasAccessToken() ? 200 : 70;
+    String url = 'https://cracker.red/images/$imageFilename';
+    double imageSize = 200;
+    if (!_hasAccessToken()) {
+      imageSize = 70;
+      url += '?w=30&h=30';
+    }
+
     return Container(
       margin: const EdgeInsets.all(10.0),
       width: imageSize,
       height: imageSize,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue, width: 4.0),
+        border: Border.all(color: Color.fromRGBO(254, 203, 0, 1), width: 4.0),
         shape: BoxShape.circle,
         image: DecorationImage(
           fit: BoxFit.fill,
           image: NetworkImage(
-            'https://cracker.red/images/$imageFilename',
+            url,
             headers: {'Authorization': 'Bearer $accessToken'},
           ),
         ),

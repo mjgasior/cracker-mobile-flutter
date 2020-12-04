@@ -80,7 +80,7 @@ class _MarkersState extends State<Markers> {
         }
 
         if (result.loading) {
-          return Text('Loading');
+          return Center(child: CircularProgressIndicator());
         }
 
         List markers = result.data['markers'];

@@ -2,5 +2,9 @@
   "logIn": "Log in!",
   "@logIn": {
     "description": "Log in button"
+  },
+  "logOut": "Log out",
+  "@logOut": {
+    "description": "Log out button"
   }
 }
