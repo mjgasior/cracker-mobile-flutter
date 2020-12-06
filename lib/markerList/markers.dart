@@ -56,10 +56,14 @@ class _MarkersState extends State<Markers> {
   }
 
   Iterable _processMarkers(List markers) {
-    return markers.map((e) {
-      // e.distance = _getDistance(e, this.userLocation);
-      return e;
-    }).toList();
+    if (markers.length > 0) {
+      return markers.map((item) {
+        item['distance'] = _getDistance(item, this.userLocation);
+        return item;
+      }).toList()
+        ..sort((a, b) => a['distance'].compareTo(b['distance']));
+    }
+    return markers;
   }
 
   @override
