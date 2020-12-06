@@ -40,7 +40,7 @@ Success
 - `google_maps_flutter` - plugin that provides a Google Maps widget
 - `graphql-flutter` - a package based on Apollo GraphQL client that allows an integration with a GraphQL server in Flutter
 - `http` - a composable, Future-based library for making HTTP requests published by the Dart Team
-- `pinch_zoom_image_last` - widget that allows the image to be zoomed with pinching
+- `pinch_zoom` - widget that allows the image to be zoomed with pinching, this package wraps the functionality of [Flutter's InteractiveViewer](https://api.flutter.dev/flutter/widgets/InteractiveViewer-class.html)
 
 ## Resources:
 
