@@ -8,26 +8,6 @@ class ExtendedImage extends StatelessWidget {
   const ExtendedImage(this.url, this.accessToken);
 
   @override
-  Widget build2(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        child: Center(
-          child: Hero(
-            tag: 'imageHero',
-            child: Image.network(
-              url,
-              headers: {'Authorization': 'Bearer $accessToken'},
-            ),
-          ),
-        ),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
