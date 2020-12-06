@@ -11,18 +11,10 @@ class MarkerTile extends StatelessWidget {
   MarkerTile(this.marker, this.userPosition, this.accessToken);
 
   String _getLabel() {
-    final double lat1 = marker['latitude'];
-    final double lon1 = marker['longitude'];
     String positionLabel = "";
 
-    if (userPosition != null) {
-      final double lat2 = userPosition.latitude;
-      final double lon2 = userPosition.longitude;
-
-      final double distance =
-          Geolocator.distanceBetween(lat1, lon1, lat2, lon2);
-
-      positionLabel = "${distance.toStringAsFixed(0)} m";
+    if (marker['distance'] != null) {
+      positionLabel = "${marker['distance'].toStringAsFixed(0)} m";
     }
 
     return positionLabel;

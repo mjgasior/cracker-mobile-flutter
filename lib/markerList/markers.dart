@@ -41,6 +41,31 @@ class _MarkersState extends State<Markers> {
     return MarkerTile(marker, userLocation, widget.accessToken);
   }
 
+  double _getDistance(marker, userPosition) {
+    final double lat1 = marker['latitude'];
+    final double lon1 = marker['longitude'];
+
+    if (userPosition != null) {
+      final double lat2 = userPosition.latitude;
+      final double lon2 = userPosition.longitude;
+
+      return Geolocator.distanceBetween(lat1, lon1, lat2, lon2);
+    }
+
+    return null;
+  }
+
+  Iterable _processMarkers(List markers) {
+    if (markers.length > 0) {
+      return markers.map((item) {
+        item['distance'] = _getDistance(item, this.userLocation);
+        return item;
+      }).toList()
+        ..sort((a, b) => a['distance'].compareTo(b['distance']));
+    }
+    return markers;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -83,7 +108,7 @@ class _MarkersState extends State<Markers> {
           return Center(child: CircularProgressIndicator());
         }
 
-        List markers = result.data['markers'];
+        List markers = _processMarkers(result.data['markers']);
         return Expanded(
             child: ListView.builder(
                 itemCount: markers.length,
