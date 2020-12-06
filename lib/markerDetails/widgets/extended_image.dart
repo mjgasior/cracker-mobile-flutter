@@ -40,12 +40,6 @@ class ExtendedImage extends StatelessWidget {
                 headers: {'Authorization': 'Bearer $accessToken'},
               ),
               zoomedBackgroundColor: Color.fromRGBO(240, 240, 240, 1.0),
-              onZoomStart: () {
-                print('Zoom started');
-              },
-              onZoomEnd: () {
-                print('Zoom finished');
-              },
             ),
           ),
         ),
