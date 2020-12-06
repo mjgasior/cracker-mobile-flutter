@@ -23,6 +23,7 @@ dependencies:
   google_maps_flutter: 1.0.6
   graphql_flutter: ^3.0.0
   http: ^0.12.2
+  pinch_zoom_image_last: ^0.3.2
 
 dev_dependencies:
   flutter_test:

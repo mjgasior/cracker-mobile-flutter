@@ -40,6 +40,7 @@ Success
 - `google_maps_flutter` - plugin that provides a Google Maps widget
 - `graphql-flutter` - a package based on Apollo GraphQL client that allows an integration with a GraphQL server in Flutter
 - `http` - a composable, Future-based library for making HTTP requests published by the Dart Team
+- `pinch_zoom_image_last` - widget that allows the image to be zoomed with pinching
 
 ## Resources:
 
@@ -47,6 +48,7 @@ Success
 - [Android Asset Studio for assets generation](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html)
 - [Auth0 with Flutter](https://auth0.com/blog/get-started-with-flutter-authentication/)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Dart language tour](https://dart.dev/guides/language/language-tour)
 - [Hide your api keys from your android manifest file with Flutter using local.properties](https://dev.to/stevenosse/hide-your-api-keys-from-your-android-manifest-file-with-flutter-using-local-properties-3f4e)
 - [Icon converter for mobile devices](https://appicon.co/)
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)

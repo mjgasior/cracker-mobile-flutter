@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 
 class ExtendedImage extends StatelessWidget {
   final String url;
@@ -7,7 +8,7 @@ class ExtendedImage extends StatelessWidget {
   const ExtendedImage(this.url, this.accessToken);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build2(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
         child: Center(
@@ -16,6 +17,35 @@ class ExtendedImage extends StatelessWidget {
             child: Image.network(
               url,
               headers: {'Authorization': 'Bearer $accessToken'},
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Center(
+          child: Hero(
+            tag: 'imageHero',
+            child: PinchZoomImage(
+              image: Image.network(
+                url,
+                headers: {'Authorization': 'Bearer $accessToken'},
+              ),
+              zoomedBackgroundColor: Color.fromRGBO(240, 240, 240, 1.0),
+              onZoomStart: () {
+                print('Zoom started');
+              },
+              onZoomEnd: () {
+                print('Zoom finished');
+              },
             ),
           ),
         ),

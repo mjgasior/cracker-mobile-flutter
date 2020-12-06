@@ -308,6 +308,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.2"
+  pinch_zoom_image_last:
+    dependency: "direct main"
+    description:
+      name: pinch_zoom_image_last
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   platform:
     dependency: transitive
     description:
