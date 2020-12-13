@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pinch_zoom/pinch_zoom.dart';
 
 class ExtendedImage extends StatelessWidget {
   final String url;
@@ -14,14 +13,14 @@ class ExtendedImage extends StatelessWidget {
         child: Center(
           child: Hero(
             tag: 'imageHero',
-            child: PinchZoom(
-              image: Image.network(
+            child: InteractiveViewer(
+              boundaryMargin: EdgeInsets.all(20.0),
+              minScale: 0.1,
+              maxScale: 3,
+              child: Image.network(
                 url,
                 headers: {'Authorization': 'Bearer $accessToken'},
               ),
-              zoomedBackgroundColor: Color.fromRGBO(240, 240, 240, 1.0),
-              resetDuration: const Duration(milliseconds: 10000),
-              maxScale: 2.5,
             ),
           ),
         ),
