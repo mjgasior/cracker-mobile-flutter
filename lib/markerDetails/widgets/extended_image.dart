@@ -13,9 +13,14 @@ class ExtendedImage extends StatelessWidget {
         child: Center(
           child: Hero(
             tag: 'imageHero',
-            child: Image.network(
-              url,
-              headers: {'Authorization': 'Bearer $accessToken'},
+            child: InteractiveViewer(
+              boundaryMargin: EdgeInsets.all(20.0),
+              minScale: 0.1,
+              maxScale: 3,
+              child: Image.network(
+                url,
+                headers: {'Authorization': 'Bearer $accessToken'},
+              ),
             ),
           ),
         ),
